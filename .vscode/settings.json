@@ -1,0 +1,17 @@
+{
+    "tailwindCSS.emmetCompletions": true,
+    "editor.suggest.showInlineDetails": true,
+    "tailwindCSS.experimental.classRegex": [
+        "tw`([^`]*)", // tw`...`
+        "tw=\"([^\"]*)", // <div tw="..." />
+        "tw={\"([^\"}]*)", // <div tw={"..."} />
+        "tw\\.\\w+`([^`]*)", // tw.xxx`...`
+        "tw.style(`([^`]*)", // tw.style`...`
+        "tw\\(.*?\\)`([^`]*)" // tw(Component)`...`
+    ],
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "css.validate": false,
+    "cSpell.words": ["Ionicons"]
+}
