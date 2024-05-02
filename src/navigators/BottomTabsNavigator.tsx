@@ -60,7 +60,7 @@ const BottomTabsNavigator = () => {
         return {
             headerStyle: tw`bg-primary-500`,
             headerTintColor: "white",
-            tabBarStyle: tw`bg-primary-800 py-1`,
+            tabBarStyle: tw`bg-primary-800`,
             tabBarActiveTintColor: tw.color("accent-500"),
             headerRight: ({ tintColor }) => {
                 return (
