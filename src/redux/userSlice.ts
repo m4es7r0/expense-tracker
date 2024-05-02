@@ -123,43 +123,43 @@ const checkLoginStatus = createAsyncThunk<SavedData | {}>(
         if (!("id" in savedData)) return {};
 
         // renew token if expired
-        const now = new Date();
-        const expiresAt = new Date(savedData.expiresAt);
-        if (now < expiresAt) return savedData;
+        // const now = new Date();
+        // const expiresAt = new Date(savedData.expiresAt);
+        // if (now < expiresAt) return savedData;
 
-        const res = await axios.post<{
-            expires_in: string;
-            token_type: string;
-            refresh_token: string;
-            id_token: string;
-            user_id: string;
-            project_id: string;
-        }>(
-            "https://securetoken.googleapis.com/v1/token",
-            {
-                grant_type: "refresh_token",
-                refresh_token: savedData.refreshToken,
-            },
-            {
-                params: {
-                    key: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
-                },
-            },
-        );
+        // const res = await axios.post<{
+        //     expires_in: string;
+        //     token_type: string;
+        //     refresh_token: string;
+        //     id_token: string;
+        //     user_id: string;
+        //     project_id: string;
+        // }>(
+        //     "https://securetoken.googleapis.com/v1/token",
+        //     {
+        //         grant_type: "refresh_token",
+        //         refresh_token: savedData.refreshToken,
+        //     },
+        //     {
+        //         params: {
+        //             key: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
+        //         },
+        //     },
+        // );
 
-        const newSavedData = {
-            expiresAt: getDatePlusSeconds(
-                new Date(),
-                +res.data.expires_in,
-            ).toISOString(),
-            refreshToken: res.data.refresh_token,
-            token: res.data.id_token,
-            id: res.data.user_id,
-        } satisfies SavedData;
+        // const newSavedData = {
+        //     expiresAt: getDatePlusSeconds(
+        //         new Date(),
+        //         +res.data.expires_in,
+        //     ).toISOString(),
+        //     refreshToken: res.data.refresh_token,
+        //     token: res.data.id_token,
+        //     id: res.data.user_id,
+        // } satisfies SavedData;
 
-        await AsyncStorage.setItem("user", JSON.stringify(newSavedData));
+        // await AsyncStorage.setItem("user", JSON.stringify(newSavedData));
 
-        return newSavedData;
+        return savedData;
     },
 );
 
