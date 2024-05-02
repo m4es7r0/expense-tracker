@@ -9,14 +9,18 @@ import Button from "../../UI/Button";
 import Input from "../Input";
 
 const expenseSchema = z.object({
-    amount: z.string().refine(value => !isNaN(+value), {
-        message: "Unable to parse string as a number",
-        path: [],
-    }),
+    amount: z
+        .string({ required_error: "Обов'язкове поле" })
+        .refine(value => !isNaN(+value), {
+            message: "Не вдається розібрати рядок як число",
+            path: [],
+        }),
     date: z
-        .string()
-        .regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
-    desc: z.string().min(3, "Description must be at least 3 characters long"),
+        .string({ required_error: "Обов'язкове поле" })
+        .regex(/^\d{4}-\d{2}-\d{2}$/, "Дата повинна бути у форматі YYYY-MM-DD"),
+    desc: z
+        .string({ required_error: "Обов'язкове поле" })
+        .min(3, "Опис повинен мати довжину не менше 3 символів"),
 });
 
 type ExpenseSchema = z.infer<typeof expenseSchema>;
@@ -54,17 +58,17 @@ const ExpenseForm = ({ onCancel, onConfirm, expense }: Props) => {
     const isEditing = !!expense;
 
     return (
-        <View style={tw`mt-10`}>
-            <Text style={tw`text-2xl font-bold text-center text-white my-6`}>
-                Your Expense
-            </Text>
+        <View style={tw`mt-0`}>
+            {/* <Text style={tw`text-2xl font-bold text-center text-white my-6`}>
+                Ваша витрата
+            </Text> */}
             <View style={tw`flex-row justify-between`}>
                 <Controller
                     control={control}
                     name="amount"
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            label="Amount"
+                            label="Кількість"
                             containerStyle="flex-1"
                             isValid={!errors.amount}
                             textInputConfig={{
@@ -84,7 +88,7 @@ const ExpenseForm = ({ onCancel, onConfirm, expense }: Props) => {
                     name="date"
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            label="Date"
+                            label="Дата"
                             containerStyle="flex-1"
                             isValid={!errors.date}
                             textInputConfig={{
@@ -105,7 +109,7 @@ const ExpenseForm = ({ onCancel, onConfirm, expense }: Props) => {
                 name="desc"
                 render={({ field: { onChange, onBlur, value } }) => (
                     <Input
-                        label="Description"
+                        label="Опис"
                         isValid={!errors.desc}
                         textInputConfig={{
                             multiline: true,
@@ -135,14 +139,14 @@ const ExpenseForm = ({ onCancel, onConfirm, expense }: Props) => {
                     outerViewStyle={tw`min-w-[120px] mx-2`}
                     onPress={onCancel}
                 >
-                    Cancel
+                    Скасувати
                 </Button>
                 <Button
                     variant="default"
                     outerViewStyle={tw`min-w-[120px] mx-2`}
                     onPress={handleSubmit(onSubmit)}
                 >
-                    {isEditing ? "Update" : "Add"}
+                    {isEditing ? "Оновити" : "Додати"}
                 </Button>
             </View>
         </View>

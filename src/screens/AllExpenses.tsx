@@ -23,9 +23,14 @@ const AllExpensesScreen = () => {
         setExpenses(firebaseExpensesToExpenses(data));
     }, [data]);
 
-    if (isLoading) return <LoadingSpinner text="Loading your expenses" />;
+    if (isLoading) return <LoadingSpinner text="Завантаження ваших витрат" />;
 
-    return <ExpensesOutput expenses={expenses} expensesPeriod="All" />;
+    return (
+        <ExpensesOutput
+            expenses={expenses}
+            expensesPeriod="Сумма всіх витрат"
+        />
+    );
 };
 
 export default AllExpensesScreen;

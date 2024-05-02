@@ -36,7 +36,7 @@ const ExpenseEditForm = ({ expense, onCancel, onConfirm }: Props) => {
     };
 
     if (isLoading)
-        return <LoadingSpinner text="Editing your expense, hang on" />;
+        return <LoadingSpinner text="Редагування ваших витрат, зачекайте" />;
 
     return (
         <ExpenseForm

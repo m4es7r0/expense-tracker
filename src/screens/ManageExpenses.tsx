@@ -18,7 +18,7 @@ const ManageExpensesScreen = ({
     useEffect(() => {
         // set title
         navigation.setOptions({
-            title: isEditing ? "Edit Expense" : "Add Expense",
+            title: isEditing ? "Редагувати витрату" : "Додати витрату",
         });
     }, [navigation, isEditing]);
 
@@ -39,7 +39,10 @@ const ManageExpensesScreen = ({
                         onCancel={handleFormCancel}
                         onConfirm={handleFormConfirm}
                     />
-                    <ExpenseDeleteButton expense={{ id: expenseId }} />
+                    <ExpenseDeleteButton
+                        expense={{ id: expenseId }}
+                        callback={handleFormCancel}
+                    />
                 </>
             ) : (
                 <ExpenseNewForm

@@ -12,7 +12,7 @@ type Props = {
 
 const Input = ({ label, textInputConfig, containerStyle, isValid }: Props) => {
     return (
-        <View style={tw.style(`mx-1 my-2`, containerStyle)}>
+        <View style={tw.style(`mx-1 mb-2`, containerStyle)}>
             <Text
                 style={tw.style(
                     `text-xs text-primary-100 mb-1`,

@@ -13,8 +13,13 @@ export type Props = {
 };
 
 const LoginFormSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8).max(16),
+    email: z
+        .string({ required_error: "Обов'язкове поле" })
+        .email({ message: "Невірна електронна адреса" }),
+    password: z
+        .string({ required_error: "Обов'язкове поле" })
+        .min(8, { message: "Пароль повинен містити мінімум 8 символів" })
+        .max(16, { message: "Пароль повинен містити максимум 16 символів" }),
 });
 
 type LoginFormSchema = z.infer<typeof LoginFormSchema>;
@@ -41,7 +46,7 @@ const LoginForm = ({ onSuccessfulLogin }: Props) => {
     };
 
     if (isSubmitting)
-        return <LoadingSpinner text="Hang on, We are logging you in!" />;
+        return <LoadingSpinner text="Зачекайте, ми входимо в систему!" />;
 
     return (
         <View>
@@ -51,7 +56,7 @@ const LoginForm = ({ onSuccessfulLogin }: Props) => {
                     name="email"
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            label="Email Address"
+                            label="Електронна пошта"
                             isValid={!errors.email}
                             textInputConfig={{
                                 keyboardType: "email-address",
@@ -70,7 +75,7 @@ const LoginForm = ({ onSuccessfulLogin }: Props) => {
                     name="password"
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            label="Password"
+                            label="Пароль"
                             isValid={!errors.password}
                             textInputConfig={{
                                 placeholder: "",
@@ -93,12 +98,13 @@ const LoginForm = ({ onSuccessfulLogin }: Props) => {
                 ))}
                 {errors.root?.serverError && (
                     <Text style={tw`text-rose-600`}>
-                        {errors.root.serverError.message}, Please Try again
+                        {errors.root.serverError.message}, Будь ласка спробуйте
+                        ще раз
                     </Text>
                 )}
             </View>
             <Button variant="default" onPress={handleSubmit(onSubmit)}>
-                Log In
+                Увійти
             </Button>
         </View>
     );

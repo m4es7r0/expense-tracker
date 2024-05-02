@@ -31,12 +31,12 @@ const RecentExpensesScreen = () => {
         );
     }, [data]);
 
-    if (isLoading) return <LoadingSpinner text="Loading your expenses" />;
+    if (isLoading) return <LoadingSpinner text="Завантаження ваших витрат" />;
 
     return (
         <ExpensesOutput
             expenses={recentExpenses}
-            expensesPeriod="Last 7 Days..."
+            expensesPeriod="Останні 7 днів"
         />
     );
 };

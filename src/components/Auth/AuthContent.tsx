@@ -34,8 +34,8 @@ const AuthContent = ({ mode, onAuth }: Props) => {
             <View style={tw`mt-2`}>
                 <Button variant="flat" onPress={handleAuthModeChange}>
                     {mode === "signUp"
-                        ? "Already have an account?"
-                        : "Don't have an account?"}
+                        ? "Вже є аккаунт?"
+                        : "Немає облікового запису?"}
                 </Button>
             </View>
         </View>

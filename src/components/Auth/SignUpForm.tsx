@@ -11,23 +11,37 @@ import Input from "../UI/Input";
 
 const SignUpFormSchema = z
     .object({
-        email: z.string().email(),
-        confirmEmail: z.string().email(),
-        password: z.string().min(8).max(16),
-        confirmPassword: z.string().min(8).max(16),
+        email: z
+            .string({ required_error: "Обов'язкове поле" })
+            .email({ message: "Невірна електронна адреса" }),
+        confirmEmail: z
+            .string({ required_error: "Обов'язкове поле" })
+            .email({ message: "Невірна електронна адреса" }),
+        password: z
+            .string({ required_error: "Обов'язкове поле" })
+            .min(8, { message: "Пароль повинен містити мінімум 8 символів" })
+            .max(16, {
+                message: "Пароль повинен містити максимум 16 символів",
+            }),
+        confirmPassword: z
+            .string({ required_error: "Обов'язкове поле" })
+            .min(8, { message: "Пароль повинен містити мінімум 8 символів" })
+            .max(16, {
+                message: "Пароль повинен містити максимум 16 символів",
+            }),
     })
     .superRefine(({ email, confirmEmail, password, confirmPassword }, ctx) => {
         if (email !== confirmEmail) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: "Emails do not match",
+                message: "Електронні адреси не співпадають",
                 path: ["confirmEmail"],
             });
         }
         if (password !== confirmPassword) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: "Passwords do not match",
+                message: "Паролі не співпадають",
                 path: ["confirmPassword"],
             });
         }
@@ -68,7 +82,7 @@ const SignUpForm = ({ onSuccessfulSignUp }: Props) => {
                     name="email"
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            label="Email Address"
+                            label="Електронна пошта"
                             isValid={!errors.email}
                             textInputConfig={{
                                 keyboardType: "email-address",
@@ -87,7 +101,7 @@ const SignUpForm = ({ onSuccessfulSignUp }: Props) => {
                     name="confirmEmail"
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            label="Confirm Email Address"
+                            label="Підтвердити електронну пошту"
                             isValid={!errors.confirmEmail}
                             textInputConfig={{
                                 keyboardType: "email-address",
@@ -106,7 +120,7 @@ const SignUpForm = ({ onSuccessfulSignUp }: Props) => {
                     name="password"
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            label="Password"
+                            label="Пароль"
                             isValid={!errors.password}
                             textInputConfig={{
                                 placeholder: "",
@@ -123,7 +137,7 @@ const SignUpForm = ({ onSuccessfulSignUp }: Props) => {
                     name="confirmPassword"
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            label="Confirm Password"
+                            label="Підтвердити пароль"
                             isValid={!errors.confirmPassword}
                             textInputConfig={{
                                 placeholder: "",
@@ -145,7 +159,8 @@ const SignUpForm = ({ onSuccessfulSignUp }: Props) => {
                     ))}
                     {errors.root?.serverError && (
                         <Text style={tw`text-rose-600`}>
-                            {errors.root.serverError.message}, Please Try again
+                            {errors.root.serverError.message}, Будь ласка
+                            спробуйте ще раз
                         </Text>
                     )}
                 </View>
@@ -154,7 +169,7 @@ const SignUpForm = ({ onSuccessfulSignUp }: Props) => {
                         onPress={handleSubmit(onSuccessfulSignUp)}
                         variant="default"
                     >
-                        Sign Up
+                        Зареєструватися
                     </Button>
                 </View>
             </View>

@@ -22,7 +22,7 @@ const ExpensesList = ({ expenses }: Props) => {
             ListEmptyComponent={
                 <View>
                     <Text style={tw`text-white text-center`}>
-                        No expenses found... Winning 🏆
+                        Витрат не знайдено 🏆
                     </Text>
                 </View>
             }

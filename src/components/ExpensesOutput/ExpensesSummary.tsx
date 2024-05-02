@@ -20,7 +20,7 @@ const ExpensesSummary = ({ periodName, expenses }: Props) => {
         >
             <Text style={tw`text-sm text-primary-400`}>{periodName}</Text>
             <Text style={tw`text-base font-bold text-primary-500`}>
-                ${expensesSum.toFixed(2)}
+                ₴{expensesSum.toFixed(2)}
             </Text>
         </View>
     );

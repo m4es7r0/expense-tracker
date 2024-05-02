@@ -13,7 +13,7 @@ const LoadingSpinner = ({ text }: Props) => {
         >
             <ActivityIndicator size="large" color="white" />
             <Text style={tw`text-white font-bold tracking-wider text-2xl`}>
-                {text ? text : "Loading..."}
+                {text ? text : "Завантаження..."}
             </Text>
         </View>
     );

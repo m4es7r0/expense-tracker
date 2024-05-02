@@ -24,7 +24,7 @@ const ExpenseNewForm = ({ onCancel, onConfirm }: Props) => {
         onConfirm();
     };
 
-    if (isLoading) return <LoadingSpinner text="Adding your expense" />;
+    if (isLoading) return <LoadingSpinner text="Додавання ваших витрат" />;
 
     return <ExpenseForm onCancel={onCancel} onConfirm={handleFormConfirm} />;
 };
